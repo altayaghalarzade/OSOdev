@@ -107,3 +107,69 @@ void schedule_processes(Process *processes, int count) {
     }
 
  
+
+
+
+
+    write_output(output_file, "-----------------------------------------------------------------------------------\n");
+
+    write_output(output_file, "CPU-1 queue (priority-0) (FCFS) -> ");
+    for (int i = 0; i < count; i++) {
+        if (processes[i].priority == 0) {
+            fprintf(output_file, "%s ", processes[i].id);
+            printf("%s ", processes[i].id);
+        }
+    }
+    fprintf(output_file, "\n");
+    printf("\n");
+
+    write_output(output_file, "CPU-2 queue (priority-1) (SJF) -> ");
+    for (int i = 0; i < count; i++) {
+        if (processes[i].priority == 1) {
+            fprintf(output_file, "%s ", processes[i].id);
+            printf("%s ", processes[i].id);
+        }
+    }
+    fprintf(output_file, "\n");
+    printf("\n");
+
+    write_output(output_file, "CPU-2 queue (priority-2) (RR-q8) -> ");
+    for (int i = 0; i < count; i++) {
+        if (processes[i].priority == 2) {
+            fprintf(output_file, "%s ", processes[i].id);
+            printf("%s ", processes[i].id);
+        }
+    }
+    fprintf(output_file, "\n");
+    printf("\n");
+
+    write_output(output_file, "CPU-2 queue (priority-3) (RR-q16) -> ");
+    for (int i = 0; i < count; i++) {
+        if (processes[i].priority == 3) {
+            fprintf(output_file, "%s ", processes[i].id);
+            printf("%s ", processes[i].id);
+        }
+    }
+    fprintf(output_file, "\n");
+    printf("\n");
+
+    fclose(output_file);
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s input.txt\n", argv[0]);
+        return 1;
+    }
+
+    Process *processes;
+    int count = read_processes(argv[1], &processes);
+    if (count < 0) {
+        return 1;
+    }
+
+    schedule_processes(processes, count);
+
+    free(processes);
+    return 0;
+}
